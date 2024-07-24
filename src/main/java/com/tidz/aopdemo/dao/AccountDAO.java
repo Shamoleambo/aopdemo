@@ -1,6 +1,8 @@
 package com.tidz.aopdemo.dao;
 
+import com.tidz.aopdemo.Account;
+
 public interface AccountDAO {
 
-	void addAccount();
+	void addAccount(Account account);
 }
