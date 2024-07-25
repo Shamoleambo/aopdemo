@@ -11,16 +11,29 @@ public class MyDemoLoggingAspect {
 
 	@Pointcut("execution(* com.tidz.aopdemo.dao.*.*(..))")
 	public void forDaoPackage() {
+	}
+
+	@Pointcut("execution(* com.tidz.aopdemo.dao.*.get*(..))")
+	private void getter() {
+	}
+
+	@Pointcut("execution(* com.tidz.aopdemo.dao.*.set*(..))")
+	private void setter() {
+	}
+
+	@Pointcut("forDaoPackage() && !(getter() || setter())")
+	private void forDaoPackageNoGetterSetter() {
 
 	}
 
-	@Before("forDaoPackage()")
+	@Before("forDaoPackageNoGetterSetter()")
 	public void beforeAddAccountAdvice() {
 		System.out.println("\n====> Executing @Before advice on method");
 	}
 
-	@Before("forDaoPackage()")
+	@Before("forDaoPackageNoGetterSetter()")
 	public void performApiAnalytics() {
 		System.out.println("\n====> Performing API analytics");
 	}
+
 }
